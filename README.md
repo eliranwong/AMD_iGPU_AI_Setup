@@ -262,7 +262,7 @@ ai -ec
 
 > ai Hi!
 
-Remarks: Ollama is set as the default backend, so you can use the `ai` or `aic` commands without specifying the backend. Run `ai -ec` to edit configurations.
+Remarks: Ollama is set as the default backend, so you can use the `ai` or `aic` commands without specifying the backend option. Run `ai -ec` to edit configurations.
 
 ## Test with Llama.cpp
 
@@ -303,11 +303,11 @@ To use one of them, e.g.:
 
 SearXNG is automatically installed with Perplexica, to get real-time information, e.g.:
 
-> ai -t search/searxng Give news updates in London today.
+> ai -t search/searxng Give me news updates in London today.
 
 ## Note about Vertex AI
 
-Make sure extra `genai` is installed with the command mentioned above:
+Make sure the extra `genai` is installed with the command mentioned above:
 
 > pip install --upgrade agentmake[genai]
 
@@ -325,11 +325,11 @@ Read more at https://github.com/eliranwong/agentmake
 
 # Speed Tests
 
-[Ollama](https://github.com/eliranwong/AMD_iGPU_AI_Setup/speed_test/blob/main/speed_test/ollama.md)
+[Ollama](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/spped_test/ollama.md)
 
-[Llama.cpp with CPU backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/speed_test/blob/main/speed_test/llamacpp_cpu.md)
-
-[Llama.cpp with ROCm backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/speed_test/blob/main/speed_test/llamacpp_rocm.md)
+[Llama.cpp with CPU backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/spped_test/llamacpp_cpu.md)
+[
+Llama.cpp with ROCm backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/spped_test/llamacpp_rocm.md)
 
 With the same memory settings, 
 
