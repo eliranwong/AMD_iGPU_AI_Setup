@@ -6,6 +6,8 @@ For multiple AMD-GPU setup, please visit https://github.com/eliranwong/MultiAMDG
 
 # Tested Device
 
+Device: [GPD Pocket 4](https://gpd.hk/gpdpocket4)
+
 Tested device: AMD Ryzen™ AI 9 HX 370; AMD Radeon™ 890M (RDNA 3.5)
 
 BIOS Memory Setting (reboot+DEL key):
