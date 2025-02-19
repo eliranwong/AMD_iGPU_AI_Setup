@@ -236,7 +236,9 @@ Expected lines in the terminal output:
 
 Run in terminal:
 
-> echo "alias llamacpp=\"cd /home/$USER/agentmake/models/gguf/ && $(pwd)/build/bin/llama-server --threads $(lscpu | grep -m 1 '^Core(s)' | awk '{print $NF}') --model\"" >> $HOME/.bashrc
+```
+echo "alias llamacpp=\"cd /home/$USER/agentmake/models/gguf/ && $(pwd)/build/bin/llama-server --threads $(lscpu | grep -m 1 '^Core(s)' | awk '{print $NF}') --model\"" >> $HOME/.bashrc
+```
 
 # Install Agentmake AI
 
