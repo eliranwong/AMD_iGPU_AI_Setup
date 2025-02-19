@@ -230,13 +230,13 @@ Expected lines in the terminal output:
 ...
 ```
 
-## create an alias for launching llama-server
+## Alias for launching llama-server
 
 Run in terminal:
 
 > echo "alias llamacpp=\"cd /home/$USER/agentmake/models/gguf/ && $(pwd)/build/bin/llama-server --threads $(lscpu | grep -m 1 '^Core(s)' | awk '{print $NF}') --model\"" >> $HOME/.bashrc
 
-# Agentmake
+# Install Agentmake AI
 
 Run in terminal:
 
