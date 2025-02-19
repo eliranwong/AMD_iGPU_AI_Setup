@@ -8,7 +8,7 @@ For multiple AMD-GPU setup, please visit https://github.com/eliranwong/MultiAMDG
 
 Device: [GPD Pocket 4](https://gpd.hk/gpdpocket4)
 
-Tested device: AMD Ryzen™ AI 9 HX 370; AMD Radeon™ 890M (RDNA 3.5)
+Hardware: AMD Ryzen™ AI 9 HX 370; AMD Radeon™ 890M (RDNA 3.5)
 
 BIOS Memory Setting (reboot+DEL key):
 
@@ -19,6 +19,8 @@ iGPU Advanced Control > Disabled
 Dedicated Graphics Memory > Medium (16GB)
 Remaining System Memory > 48GB
 ```
+
+Operating System: [Ubuntu 24.04.1 LTS](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
 
 > uname -a
 
