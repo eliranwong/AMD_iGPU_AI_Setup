@@ -257,9 +257,13 @@ pip install --upgrade agentmake[genai]
 echo ". /home/$USER/ai/bin/activate" >> ~/.bashrc
 # To test
 ai Hi!
-# To edit configurations
-ai -ec
 ```
+
+## Edit Configurations
+
+To edit configurations, run in terminal:
+
+> ai -ec
 
 ## Test with Ollama
 
@@ -314,7 +318,16 @@ Make sure the extra `genai` is installed with the command mentioned above:
 
 > pip install --upgrade agentmake[genai]
 
-To use Vertex AI as backend with AgentMake AI, copy your credentials to `~/agentmake/credentials_google_cloud.json`.
+To configure, run:
+
+> ai -ec
+
+Enter the full path of your Google Vertex AI credentials JSON file as the values of `GOOGLE_APPLICATION_CREDENTIALS` and `VERTEXAI_API_KEY`
+
+```
+GOOGLE_APPLICATION_CREDENTIALS='/home/eliran/agentmake/credentials_google_cloud.json'
+VERTEXAI_API_KEY='/home/eliran/agentmake/credentials_google_cloud.json'
+```
 
 To test Gemini 2.0 with Vertex AI, e.g.:
 
