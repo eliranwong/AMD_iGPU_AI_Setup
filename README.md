@@ -243,6 +243,17 @@ cd llama.cpp
 echo "alias llamacpp=\"cd /home/$USER/agentmake/models/gguf/ && $(pwd)/build/bin/llama-server --threads $(lscpu | grep -m 1 '^Core(s)' | awk '{print $NF}') --model\"" >> $HOME/.bashrc
 ```
 
+# Install Fabric
+
+Run in terminal:
+
+```
+mkdir -p ~/.local/bin
+cd ~/.local/bin
+curl -L https://github.com/danielmiessler/fabric/releases/latest/download/fabric-linux-amd64 > fabric && chmod +x fabric && ./fabric --version
+fabric --setup
+```
+
 # Install Agentmake AI
 
 Run in terminal:
@@ -312,21 +323,28 @@ SearXNG is automatically installed with Perplexica, to get real-time information
 
 > ai -t search/searxng Give me news updates in London today.
 
+## Test with Fabric Integration
+
+Assuming fabric patterns are downloaded, e.g.:
+
+> ai What are AI agents? -sys fabric.write_micro_essay -b genai
+
 ## Note about Vertex AI
 
-Make sure the extra `genai` is installed with the command mentioned above:
+Make sure the extra package `genai` is installed with the command mentioned above:
 
-> pip install --upgrade agentmake[genai]
+> pip install --upgrade "agentmake[genai]"
 
 To configure, run:
 
 > ai -ec
 
-Enter the full path of your Google Vertex AI credentials JSON file as the values of `GOOGLE_APPLICATION_CREDENTIALS` and `VERTEXAI_API_KEY`
+Enter the path of your Google application credentials JSON file as the value of `VERTEXAI_API_KEY`. You need to specify your project ID and service location, in the configurations, as well. e.g.:
 
 ```
-GOOGLE_APPLICATION_CREDENTIALS='/home/eliran/agentmake/credentials_google_cloud.json'
-VERTEXAI_API_KEY='/home/eliran/agentmake/credentials_google_cloud.json'
+VERTEXAI_API_KEY=~/agentmake/google_application_credentials.json
+VERTEXAI_API_PROJECT_ID=my_project_id
+VERTEXAI_API_SERVICE_LOCATION=us-central1
 ```
 
 To test Gemini 2.0 with Vertex AI, e.g.:
@@ -341,11 +359,11 @@ Read more at https://github.com/eliranwong/agentmake
 
 # Speed Tests
 
-[Ollama](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/spped_test/ollama.md)
+[Ollama](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/ollama.md)
 
-[Llama.cpp with CPU backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/spped_test/llamacpp_cpu.md)
+[Llama.cpp with CPU backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_cpu.md)
 [
-Llama.cpp with ROCm backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/spped_test/llamacpp_rocm.md)
+Llama.cpp with ROCm backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md)
 
 With the same memory settings, 
 
