@@ -357,6 +357,8 @@ Choose a predefined instruction:
 
 Assistant response is automatically copied to clipboard.
 
+Remarks: You can define up to 10 custom instructions for being selected in the dialog, by specifying the values of `CUSTOM_INSTRUCTION_1`, `CUSTOM_INSTRUCTION_2`, `CUSTOM_INSTRUCTION_3`, ... `CUSTOM_INSTRUCTION_10` in AgentMake configurations (run `ai -ec` to edit).
+
 ## Note about Azure AI Setup
 
 An easy way to deploy AI models via Azure service:
