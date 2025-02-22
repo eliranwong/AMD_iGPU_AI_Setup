@@ -345,7 +345,7 @@ Fill in content, like below (replace `username` with your `username`):
 
 ```
 Name: AgentMake AI
-Command: gnome-terminal -- bash -c "/home/username/ai/bin/ai -i -py"
+Command: gnome-terminal -- bash -c "/home/username/ai/bin/ai -i -eo -py"
 Shift+Ctrl+A
 ```
 
