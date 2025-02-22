@@ -44,6 +44,14 @@ Launch `Extension Manager` and install:
 
 * GJS OSK
 
+## Clipboard Manager
+
+> sudo apt install gir1.2-gda-5.0 gir1.2-gsound-1.0
+
+Launch `Extension Manager` and install `Peno - Clipboard Manager`
+
+Log out and log in again.
+
 # Install ROCM
 
 Tested ROCm version: 6.3.2
@@ -329,6 +337,42 @@ Assuming fabric patterns are downloaded, e.g.:
 
 > ai What are AI agents? -sys fabric.write_micro_essay -b genai
 
+## Test with Selected or Copied Text
+
+Launch `Settings` > Keyboard > View and Customise Shortcuts > Custom Shortcuts > +
+
+Fill in content, like below (replace `username` with your `username`): 
+
+```
+Name: AgentMake AI
+Command: gnome-terminal -- bash -c "/home/username/ai/bin/ai -i -py"
+Shift+Ctrl+A
+```
+
+Select or copy some text, then press `Shift+Ctrl+A`.
+
+Choose a predefined instruction:
+
+![Image](https://github.com/user-attachments/assets/969f0ede-e31a-4a50-89de-86d46679faa6)
+
+Assistant response is automatically copied to clipboard.
+
+## Note about Azure AI Setup
+
+An easy way to deploy AI models via Azure service:
+
+1. Sign in https://ai.azure.com/github
+2. All resources > Create New
+3. Overview > copy an API key, Azure OpenAI Service and Azure AI inference endpoints
+
+* Use Azure OpenAI Service endpoint for running OpenAI models; the endpoint should look like https://resource_name.openai.azure.com/
+
+* Use Azure AI inference endpoint for running DeepSeek-R1 and Phi-4; the endpoint should look like https://resource_name.services.ai.azure.com/models
+
+To configure AgentMake AI, run:
+
+> ai -ec
+
 ## Note about Vertex AI
 
 Make sure the extra package `genai` is installed with the command mentioned above:
@@ -362,8 +406,8 @@ Read more at https://github.com/eliranwong/agentmake
 [Ollama](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/ollama.md)
 
 [Llama.cpp with CPU backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_cpu.md)
-[
-Llama.cpp with ROCm backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md)
+
+[Llama.cpp with ROCm backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md)
 
 With the same memory settings, 
 
