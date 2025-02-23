@@ -337,11 +337,11 @@ Assuming fabric patterns are downloaded, e.g.:
 
 > ai What are AI agents? -sys fabric.write_micro_essay -b genai
 
-## Test with Selected or Copied Text
+## Test with Selected Text in Any Applicaitons
 
 Launch `Settings` > Keyboard > View and Customise Shortcuts > Custom Shortcuts > +
 
-Fill in content, like below (replace `username` with your `username`): 
+Fill in content, like below (replace `username` with your `username`: 
 
 ```
 Name: AgentMake AI
@@ -349,11 +349,13 @@ Command: gnome-terminal -- bash -c "/home/username/ai/bin/ai -i -eo -py"
 Shift+Ctrl+A
 ```
 
-Select or copy some text, then press `Shift+Ctrl+A`.
+![Image](https://github.com/user-attachments/assets/d21fea9a-2288-4e85-96ad-dfbee7ce160d)
+
+Select some text in an application, then press `Shift+Ctrl+A`.
 
 Choose a predefined instruction:
 
-![Image](https://github.com/user-attachments/assets/969f0ede-e31a-4a50-89de-86d46679faa6)
+![Image](https://github.com/user-attachments/assets/e4872498-0cef-48e7-a550-55c0c4234929)
 
 Assistant response is automatically copied to clipboard.
 
