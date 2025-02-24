@@ -339,6 +339,10 @@ Assuming fabric patterns are downloaded, e.g.:
 
 ## Test with Selected Text in Any Applicaitons
 
+First, make sure `xsel` is installed:
+
+> sudo apt install xsel
+
 Launch `Settings` > Keyboard > View and Customise Shortcuts > Custom Shortcuts > +
 
 Fill in content, like below (replace `username` with your `username`: 
