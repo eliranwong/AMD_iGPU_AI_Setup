@@ -242,6 +242,34 @@ Expected lines in the terminal output:
 ...
 ```
 
+# Build llama.cpp that runs Vulkan backend
+
+As an alternative to ROCm backend, you may build a copy of llama.cpp that runs Vulkan backend.
+
+To build run:
+
+```
+sudo apt install glslc glslang-tools glslang-dev vulkan-amdgpu vulkan-tools libvulkan-dev vulkan-validationlayers vulkan-utility-libraries-dev
+git clone https://github.com/ggml-org/llama.cpp
+cd llama.cpp
+cmake -S . -B build -DGGML_VULKAN=ON -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release -- -j $(lscpu | grep -m 1 '^Core(s)' | awk '{print $NF}')
+```
+
+Expected lines in the terminal output:
+
+```
+...
+-- Adding CPU backend variant ggml-cpu: -march=native 
+-- Found Vulkan: /usr/lib/x86_64-linux-gnu/libvulkan.so (found version "1.3.275") found components: glslc glslangValidator 
+-- Vulkan found
+-- GL_KHR_cooperative_matrix supported by glslc
+-- GL_NV_cooperative_matrix2 not supported by glslc
+-- Including Vulkan backend
+...
+```
+
+Make sure you set the vulkan-related variables, e.g. https://github.com/eliranwong/AMD_iGPU_AI_Setup#environment-variables
+
 ## Alias for launching llama-server
 
 Run in terminal:
