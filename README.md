@@ -236,6 +236,12 @@ Reload Ollama, run:
 
 > sudo systemctl restart ollama
 
+Add user to group `ollama` for access of Ollama directory:
+
+> sudo usermod -a -G ollama $LOGNAME
+
+> sudo reboot
+
 Note: Ollama currently does not support ROCm configuration `gfx1151`, the issue [was reported here](https://github.com/ollama/ollama/issues/9180).
 
 # Build llama.cpp that runs ROCm backend
@@ -349,11 +355,17 @@ Remarks: Ollama is set as the default backend, so you can use the `ai` or `aic` 
 
 ## Test with Llama.cpp
 
+To access model files, downloaded via ollama, add user to group `ollama`:
+
+> sudo usermod -a -G ollama $LOGNAME
+
+> sudo reboot
+
 To download a model via Ollama and save a copy of it in `~/agentmake/models/gguf/` by default, e.g.:
 
-> ai --get_model deepseek-r1 -gm llama3.3:70b -gm wizardlm2
+> ai --get_model deepseek-r1 -gm llama3.3:70b -gm aya-expanse
 
-To run an instance of llama-server, assuming that you followed instructions about alias setup, e.g.:
+To run an instance of llama-server, assuming that you have set up an alias as mentioned [here](https://github.com/eliranwong/AMD_iGPU_AI_Setup#alias-for-launching-llama-server), e.g.:
 
 > llamacpp deepseek-r1.gguf
 
