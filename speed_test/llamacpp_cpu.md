@@ -1,4 +1,16 @@
+# BIOS Memory Setting (reboot+DEL key):
+
+UEFI/BIOS -> Advanced -> AMD CBS -> NBIO -> GFX Configuration > 
+
+```
+iGPU Advanced Control > Disabled
+Dedicated Graphics Memory > Medium (16GB)
+Remaining System Memory > 48GB
+```
+
 # Test Speed with llama.cpp - CPU Backend
+
+Model: `deepseek-r1:1.5b`
 
 > ./llama-bench -t $(lscpu | grep '^Core(s)' | awk '{print $NF}') -m '/home/eliran/agentmake/models/gguf/deepseek-r1_1.5b.gguf'
 
@@ -9,6 +21,8 @@
 | qwen2 1.5B Q4_K - Medium       |   1.04 GiB |     1.78 B | CPU        |      12 |         tg128 |         65.23 ± 0.80 |
 ```
 
+Model: `deepseek-r1:7b`
+
 > ./llama-bench -t $(lscpu | grep '^Core(s)' | awk '{print $NF}') -m '/home/eliran/agentmake/models/gguf/deepseek-r1_7b.gguf'
 
 ```
@@ -17,6 +31,8 @@
 | qwen2 7B Q4_K - Medium         |   4.36 GiB |     7.62 B | CPU        |      12 |         pp512 |         49.13 ± 0.40 |
 | qwen2 7B Q4_K - Medium         |   4.36 GiB |     7.62 B | CPU        |      12 |         tg128 |         17.32 ± 0.20 |
 ```
+
+Model: `deepseek-r1:8b`
 
 > ./llama-bench -t $(lscpu | grep '^Core(s)' | awk '{print $NF}') -m '/home/eliran/agentmake/models/gguf/deepseek-r1_8b.gguf'
 
@@ -27,6 +43,8 @@
 | llama 8B Q4_K - Medium         |   4.58 GiB |     8.03 B | CPU        |      12 |         tg128 |         16.70 ± 0.19 |
 ```
 
+Model: `deepseek-r1:14b`
+
 > ./llama-bench -t $(lscpu | grep '^Core(s)' | awk '{print $NF}') -m '/home/eliran/agentmake/models/gguf/deepseek-r1_14b.gguf'
 
 ```
@@ -35,6 +53,8 @@
 | qwen2 14B Q4_K - Medium        |   8.37 GiB |    14.77 B | CPU        |      12 |         pp512 |         24.06 ± 0.19 |
 | qwen2 14B Q4_K - Medium        |   8.37 GiB |    14.77 B | CPU        |      12 |         tg128 |          9.21 ± 0.03 |
 ```
+
+Model: `deepseek-r1:32b`
 
 > ./llama-bench -t $(lscpu | grep '^Core(s)' | awk '{print $NF}') -m '/home/eliran/agentmake/models/gguf/deepseek-r1_32b.gguf'
 

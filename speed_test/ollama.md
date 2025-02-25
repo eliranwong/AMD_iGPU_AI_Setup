@@ -1,3 +1,15 @@
+# BIOS Memory Setting (reboot+DEL key):
+
+UEFI/BIOS -> Advanced -> AMD CBS -> NBIO -> GFX Configuration > 
+
+```
+iGPU Advanced Control > Disabled
+Dedicated Graphics Memory > Medium (16GB)
+Remaining System Memory > 48GB
+```
+
+Different memory settings tried for Ollama, no significant difference.
+
 # Speed Test with Ollama
 
 Tested prompt: What is machine learning?

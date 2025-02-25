@@ -10,9 +10,13 @@ Device: [GPD Pocket 4](https://gpd.hk/gpdpocket4)
 
 Hardware: AMD Ryzen™ AI 9 HX 370; AMD Radeon™ 890M (RDNA 3.5)
 
+## Memory Setting
+
 BIOS Memory Setting (reboot+DEL key):
 
 UEFI/BIOS -> Advanced -> AMD CBS -> NBIO -> GFX Configuration > 
+
+Default settings:
 
 ```
 iGPU Advanced Control > Disabled
@@ -20,7 +24,19 @@ Dedicated Graphics Memory > Medium (16GB)
 Remaining System Memory > 48GB
 ```
 
-Operating System: [Ubuntu 24.04.1 LTS](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
+Settings for the best performance:
+
+For comparison in performance, please refer to our [speed test results](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/README.md#speed-tests)
+
+```
+iGPU Advanced Control > Enabled
+Dedicated Graphics Memory > 32GB
+Remaining System Memory > 32GB
+```
+
+## Operating System
+
+Operating System: [Ubuntu 24.04.1 LTS](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) (reboot+F7 to install)
 
 > uname -a
 
@@ -214,7 +230,7 @@ Reload Ollama, run:
 
 > sudo systemctl restart ollama
 
-Note:Ollama currently does not support ROCm configuration `gfx1151`, please refer to [the issue reported here](https://github.com/ollama/ollama/issues/9180).
+Note: Ollama currently does not support ROCm configuration `gfx1151`, the issue [was reported here](https://github.com/ollama/ollama/issues/9180).
 
 # Build llama.cpp that runs ROCm backend
 
@@ -244,12 +260,17 @@ Expected lines in the terminal output:
 
 # Build llama.cpp that runs Vulkan backend
 
-As an alternative to ROCm backend, you may build a copy of llama.cpp that runs Vulkan backend.
+As an alternative to ROCm backend, you may build a copy of llama.cpp that runs Vulkan backend. In our tested device with iGPU, Vulkan backends performs better than ROCm backend. For details, please refer to [speed test results](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/README.md#speed-tests).
+
+To set up Vulkan driver:
+
+```
+sudo apt install glslc glslang-tools glslang-dev mesa-vulkan-drivers vulkan-amdgpu vulkan-tools libvulkan-dev vulkan-validationlayers vulkan-utility-libraries-dev
+```
 
 To build run:
 
 ```
-sudo apt install glslc glslang-tools glslang-dev vulkan-amdgpu vulkan-tools libvulkan-dev vulkan-validationlayers vulkan-utility-libraries-dev
 git clone https://github.com/ggml-org/llama.cpp
 cd llama.cpp
 cmake -S . -B build -DGGML_VULKAN=ON -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release -- -j $(lscpu | grep -m 1 '^Core(s)' | awk '{print $NF}')
@@ -439,14 +460,32 @@ Read more at https://github.com/eliranwong/agentmake
 
 # Speed Tests
 
-[Ollama](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/ollama.md)
+Test backends are listed below in descending order in terms of performance:
 
-[Llama.cpp with CPU backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_cpu.md)
+[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 32GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md) - the best
 
-[Llama.cpp with ROCm backend](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md)
+[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 48GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md)
 
-With the same memory settings, 
+[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 16GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md)
+
+[Llama.cpp with ROCm backend; dedicated Graphics Memory: 16GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md)
+
+[Llama.cpp with CPU backend; dedicated Graphics Memory: 16GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_cpu.md)
+
+[Ollama; dedicated Graphics Memory: 16GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/ollama.md) - the worse
+
+## Observations:
 
 * llama.cpp that runs CPU backend is slightly faster than ollama in all tests loading the same model weights.
 
 * llama.cpp that runs ROCm backend is much faster than ollama in all tests loading the same model weights.
+
+* llama.cpp that runs Vulkan backend, with dedicated graphics memory set to 32GB, performs the best.
+
+* Changes in dedicated graphics memory does not have significance change in performance for both ollama and llama.cpp that runs ROCm/CPU backend
+
+* Changes in dedicated graphics memory does make a significance difference for running llama.cpp with Vulkan backend.
+
+* Ollama performs the worse.
+
+Note: Ollama currently does not support ROCm configuration `gfx1151`, the issue [was reported here](https://github.com/ollama/ollama/issues/9180).
