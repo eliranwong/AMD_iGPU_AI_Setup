@@ -124,7 +124,7 @@ export VK_LAYER_PATH=$VULKAN_SDK/explicit_layer.d
 
 Do NOT set ROCR_VISIBLE_DEVICES for iGPU.
 
-Set it ONLY for dedicated GPUs, e.g.https://github.com/eliranwong/MultiAMDGPU_AIDev_Ubuntu#overview
+Set it ONLY for discrete GPUs, e.g. https://github.com/eliranwong/MultiAMDGPU_AIDev_Ubuntu#overview
 
 ## Remarks about HSA_OVERRIDE_GFX_VERSION:
 
@@ -305,6 +305,8 @@ Run in terminal:
 cd llama.cpp
 echo "alias llamacpp=\"cd /home/$USER/agentmake/models/gguf/ && $(pwd)/build/bin/llama-server --threads $(lscpu | grep -m 1 '^Core(s)' | awk '{print $NF}') -ngl 99 --model\"" >> $HOME/.bashrc
 ```
+
+Remarks: We add `-ngl 99` to offload as many layers as available to GPU. Using `vulkan` backend, we managed to run `70b` models on the tested device with `-ngl 99` specified. Depending on your hardware, you may need to reduce the value of ngl to load large-sized models.
 
 # Install Fabric
 
