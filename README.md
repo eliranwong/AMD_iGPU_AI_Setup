@@ -106,7 +106,7 @@ export ROCM_HOME=/opt/rocm
 export LD_LIBRARY_PATH=/usr/include/vulkan:/opt/rocm/include:/opt/rocm/lib:/opt/rocm/lib/llvm/lib:/opt/rocm/lib/migraphx/lib:$LD_LIBRARY_PATH
 export PATH=/home/eliran/.local/bin:/opt/rocm/bin:/opt/rocm/llvm/bin:$PATH
 export HSA_OVERRIDE_GFX_VERSION=11.5.1
-export ROCR_VISIBLE_DEVICES=GPU-XX
+#export ROCR_VISIBLE_DEVICES=GPU-XX
 export GPU_DEVICE_ORDINAL=0
 export HIP_VISIBLE_DEVICES=0
 export CUDA_VISIBLE_DEVICES=0
@@ -119,6 +119,12 @@ export GGML_VK_VISIBLE_DEVICES=0
 export VULKAN_SDK=/usr/share/vulkan
 export VK_LAYER_PATH=$VULKAN_SDK/explicit_layer.d
 ```
+
+## Remarks about ROCR_VISIBLE_DEVICES
+
+Do NOT set ROCR_VISIBLE_DEVICES for iGPU.
+
+Set it ONLY for dedicated GPUs, e.g.https://github.com/eliranwong/MultiAMDGPU_AIDev_Ubuntu#overview
 
 ## Remarks about HSA_OVERRIDE_GFX_VERSION:
 
