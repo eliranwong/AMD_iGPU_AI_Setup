@@ -462,11 +462,11 @@ Read more at https://github.com/eliranwong/agentmake
 
 Test backends are listed below in descending order in terms of performance:
 
-[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 32GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md) - the best
+[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 32GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_vulkan_32_32.md) - the best
 
-[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 48GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md)
+[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 48GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_vulkan_48_16.md)
 
-[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 16GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md)
+[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 16GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_vulkan_16_48.md)
 
 [Llama.cpp with ROCm backend; dedicated Graphics Memory: 16GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md)
 
