@@ -70,14 +70,14 @@ Log out and log in again.
 
 # Install ROCM
 
-Tested ROCm version: 6.3.2
+Tested ROCm version: 6.3.4
 
 ```
 sudo usermod -a -G render,video $LOGNAME
 sudo apt update
 sudo apt install -y libstdc++-12-dev
-wget https://repo.radeon.com/amdgpu-install/6.3.2/ubuntu/noble/amdgpu-install_6.3.60302-1_all.deb
-sudo apt install ./amdgpu-install_6.3.60302-1_all.deb
+wget https://repo.radeon.com/amdgpu-install/6.3.4/ubuntu/noble/amdgpu-install_6.3.60304-1_all.deb
+sudo apt install ./amdgpu-install_6.3.60304-1_all.deb
 sudo amdgpu-install --usecase=graphics,multimedia,rocm,rocmdev,rocmdevtools,lrt,opencl,openclsdk,hip,hiplibsdk,openmpsdk,mllib,mlsdk --no-dkms -y
 sudo reboot
 ```
