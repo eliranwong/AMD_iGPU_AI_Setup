@@ -70,42 +70,54 @@ Log out and log in again.
 
 # Install ROCM
 
-Tested ROCm version: 6.3.4
+Find details at: https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/docs/install/installryz/native_linux/install-ryzen.html
+
+Tested ROCm version: 7.1.1
 
 ```
 sudo usermod -a -G render,video $LOGNAME
 sudo apt update
 sudo apt install -y libstdc++-12-dev
-wget https://repo.radeon.com/amdgpu-install/6.3.4/ubuntu/noble/amdgpu-install_6.3.60304-1_all.deb
-sudo apt install ./amdgpu-install_6.3.60304-1_all.deb
+wget https://repo.radeon.com/amdgpu-install/7.1.1/ubuntu/noble/amdgpu-install_7.1.1.70101-1_all.deb
+sudo apt install ./amdgpu-install_7.1.1.70101-1_all.deb
 sudo amdgpu-install --usecase=graphics,multimedia,rocm,rocmdev,rocmdevtools,lrt,opencl,openclsdk,hip,hiplibsdk,openmpsdk,mllib,mlsdk --no-dkms -y
 sudo reboot
 ```
 
 Read more at: https://github.com/eliranwong/MultiAMDGPU_AIDev_Ubuntu/blob/main/README.md
 
+# Check gfx driver version
+
+> rocminfo
+
+Expected output:
+
+```
+...
+Name: gfx1150
+...
+```
 
 # Environment variables
 
 Add the following lines to `~/.bashrc`:
 
 ```
-export ROCM_HOME=/opt/rocm-6.3.2
-export LD_LIBRARY_PATH=/opt/rocm-6.3.2/include:/opt/rocm-6.3.2/lib:$LD_LIBRARY_PATH
-export PATH=$HOME/.local/bin:/opt/rocm-6.3.2/bin:/opt/rocm-6.3.2/llvm/bin:$PATH
-export HSA_OVERRIDE_GFX_VERSION=11.5.1
+export ROCM_HOME=/opt/rocm-7.1.1
+export LD_LIBRARY_PATH=/opt/rocm-7.1.1/include:/opt/rocm-7.1.1/lib:$LD_LIBRARY_PATH
+export PATH=$HOME/.local/bin:/opt/rocm-7.1.1/bin:/opt/rocm-7.1.1/llvm/bin:$PATH
 ```
 
 ```
 # rocm
-export GFX_ARCH=gfx1151
-export HCC_AMDGPU_TARGET=gfx1151
+export GFX_ARCH=gfx1150
+export HCC_AMDGPU_TARGET=gfx1150
 export CUPY_INSTALL_USE_HIP=1
-export ROCM_VERSION=6.3
+export ROCM_VERSION=7.1
 export ROCM_HOME=/opt/rocm
 export LD_LIBRARY_PATH=/usr/include/vulkan:/opt/rocm/include:/opt/rocm/lib:/opt/rocm/lib/llvm/lib:/opt/rocm/lib/migraphx/lib:$LD_LIBRARY_PATH
 export PATH=/home/eliran/.local/bin:/opt/rocm/bin:/opt/rocm/llvm/bin:$PATH
-export HSA_OVERRIDE_GFX_VERSION=11.5.1
+export HSA_OVERRIDE_GFX_VERSION=11.5.0
 #export ROCR_VISIBLE_DEVICES=GPU-XX
 export GPU_DEVICE_ORDINAL=0
 export HIP_VISIBLE_DEVICES=0
@@ -144,7 +156,7 @@ for RDNA 3.5 based GPUs and APUs HSA_OVERRIDE_GFX_VERSION=11.5.0
 
 3. Read more at: https://llvm.org/docs/AMDGPUUsage.html#processors
 
-In my case, I am running ROCm version 6.3.2.
+In my case, I am running ROCm version 7.1.1.
 
 When I run:
 
@@ -153,23 +165,21 @@ When I run:
 I got the following output:
 
 ```
-/opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx1010.dat
-/opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx1012.dat
 /opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx1030.dat
 /opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx1100.dat
 /opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx1101.dat
 /opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx1102.dat
+/opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx1150.dat
 /opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx1151.dat
 /opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx1200.dat
 /opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx1201.dat
-/opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx900.dat
-/opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx906.dat
 /opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx908.dat
 /opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx90a.dat
 /opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx942.dat
+/opt/rocm/lib/rocblas/library/TensileLibrary_lazy_gfx950.dat
 ```
 
-As I am running a RDNA-3.5-based iGPU, the closest choice for me is `gfx1151`.  Therefore, I `export HSA_OVERRIDE_GFX_VERSION=11.5.1` as one of the environment variables.
+This confirms that ROCm version 7.1.1 does support `gfx1150`.
 
 # Install Docker Engine
 
@@ -262,7 +272,7 @@ Expected lines in the terminal output:
 -- The HIP compiler identification is Clang 18.0.0
 -- Detecting HIP compiler ABI info
 -- Detecting HIP compiler ABI info - done
--- Check for working HIP compiler: /opt/rocm-6.3.2/lib/llvm/bin/clang - skipped
+-- Check for working HIP compiler: /opt/rocm-7.1.1/lib/llvm/bin/clang - skipped
 -- Detecting HIP compile features
 -- Detecting HIP compile features - done
 -- HIP and hipBLAS found
