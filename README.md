@@ -41,7 +41,7 @@ Operating System: [Ubuntu 24.04.1 LTS](https://ubuntu.com/tutorials/install-ubun
 > uname -a
 
 ```
-Linux ai 6.11.0-17-generic #17~24.04.2-Ubuntu SMP PREEMPT_DYNAMIC Mon Jan 01 00:00:00 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+Linux ai 6.14.0-37-generic #37~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 10:25:38 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
 # Install Basic Tools
@@ -59,14 +59,6 @@ Launch `Extension Manager` and install:
 * Screen Rotate
 
 * GJS OSK
-
-## Clipboard Manager
-
-> sudo apt install gir1.2-gda-5.0 gir1.2-gsound-1.0
-
-Launch `Extension Manager` and install `Peno - Clipboard Manager`
-
-Log out and log in again.
 
 # Install ROCM
 
@@ -188,18 +180,22 @@ This confirms that ROCm version 7.1.1 does support `gfx1150`.
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
 
 # Add Docker's official GPG key:
-sudo apt-get update
-sudo apt-get install ca-certificates curl
+sudo apt update
+sudo apt install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 
 # Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+sudo apt update
 
 # Install the docker packages
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
@@ -216,13 +212,20 @@ Read more at https://docs.docker.com/engine/install/ubuntu/
 Run in terminal:
 
 ```
+sudo apt install -y git
 git clone https://github.com/ItzCrazyKns/Perplexica.git
 cd Perplexica
-cp sample.config.toml config.toml
-# micro config.toml
-docker compose up -d
-open http://localhost:3000
+docker build -t perplexica .
+docker run -d --restart unless-stopped -p 3000:3000 -p 4000:8080 -v perplexica-data:/home/perplexica/data -v perplexica-uploads:/home/perplexica/uploads --name perplexica perplexica
 ```
+
+To open Perplexica and set up providers, run:
+
+> open http://localhost:3000
+
+To open SearXNG, run:
+
+> open http://localhost:4000
 
 # Install Ollama
 
@@ -252,8 +255,6 @@ Add user to group `ollama` for access of Ollama directory:
 
 > sudo reboot
 
-Note: Ollama currently does not support ROCm configuration `gfx1151`, the issue [was reported here](https://github.com/ollama/ollama/issues/9180).
-
 # Build llama.cpp that runs ROCm backend
 
 Run in terminal:
@@ -261,7 +262,7 @@ Run in terminal:
 ```
 git clone https://github.com/ggml-org/llama.cpp
 cd llama.cpp
-HIPCXX="$(hipconfig -l)/clang" HIP_PATH="$(hipconfig -R)" cmake -S . -B build -DGGML_HIP=ON -DGGML_HIP_UMA=ON -DAMDGPU_TARGETS=gfx1151 -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release -- -j $(lscpu | grep -m 1 '^Core(s)' | awk '{print $NF}')
+HIPCXX="$(hipconfig -l)/clang" HIP_PATH="$(hipconfig -R)" cmake -S . -B build -DGGML_HIP=ON -DGGML_HIP_UMA=ON -DAMDGPU_TARGETS=gfx1150 -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release -- -j $(lscpu | grep -m 1 '^Core(s)' | awk '{print $NF}')
 ```
 
 Expected lines in the terminal output:
@@ -287,7 +288,13 @@ As an alternative to ROCm backend, you may build a copy of llama.cpp that runs V
 To set up Vulkan driver:
 
 ```
-sudo apt install glslc glslang-tools glslang-dev mesa-vulkan-drivers vulkan-amdgpu vulkan-tools libvulkan-dev vulkan-validationlayers vulkan-utility-libraries-dev
+sudo apt install glslc glslang-tools glslang-dev mesa-vulkan-drivers vulkan-tools libvulkan-dev libvulkan-memory-allocator-dev libvulkan-volk-dev vulkan-validationlayers vulkan-utility-libraries-dev
+```
+
+Install libcurl development headers (if on Ubuntu/Debian):
+
+```
+sudo apt-get install libcurl4-openssl-dev
 ```
 
 To build run:
@@ -295,7 +302,7 @@ To build run:
 ```
 git clone https://github.com/ggml-org/llama.cpp
 cd llama.cpp
-cmake -S . -B build -DGGML_VULKAN=ON -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release -- -j $(lscpu | grep -m 1 '^Core(s)' | awk '{print $NF}')
+cmake -S . -B build -DLLAMA_CURL=ON -DGGML_VULKAN=ON -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release -- -j $(lscpu | grep -m 1 '^Core(s)' | awk '{print $NF}')
 ```
 
 Expected lines in the terminal output:
@@ -324,6 +331,39 @@ echo "alias llamacpp=\"cd /home/$USER/agentmake/models/gguf/ && $(pwd)/build/bin
 
 Remarks: We add `-ngl 99` to offload as many layers as available to GPU. Using `vulkan` backend, we managed to run `70b` models on the tested device with `-ngl 99` specified. Depending on your hardware, you may need to reduce the value of ngl to load large-sized models.
 
+# Install Open-notebook
+
+```
+# Create project directory
+mkdir -p ~/dev/open-notebook && cd ~/dev/open-notebook
+
+# Download configuration files
+curl -O https://raw.githubusercontent.com/lfnovo/open-notebook/main/docker-compose.full.yml
+curl -O https://raw.githubusercontent.com/lfnovo/open-notebook/main/.env.example
+
+# Rename and configure environment
+mv .env.example docker.env
+```
+
+```
+# Edit docker.env with your API keys
+nano docker.env
+```
+# Rename and edit the docker-compose file
+mv docker-compose.full.yml docker-compose.yml
+# In my case the port `8000` is already used by another service, so
+sed -i 's/8000:8000/9000:8000/g' docker-compose.yml
+
+# Start Open Notebook
+docker compose up -d
+
+# Make save data accessible
+sudo chmod a+w notebook_data/ surreal_data/
+
+# Access open-notebook
+open http://localhost:8502
+```
+
 # Install Fabric
 
 Run in terminal:
@@ -346,7 +386,7 @@ cd
 python3 -m venv ai
 source ai/bin/activate
 pip install --upgrade agentmake[genai]
-echo ". /home/$USER/ai/bin/activate" >> ~/.bashrc
+echo "export PATH=$PATH:$HOME/ai/bin" >> ~/.bashrc
 # To test
 ai Hi!
 ```
@@ -490,32 +530,22 @@ Read more at https://github.com/eliranwong/agentmake
 
 # Speed Tests
 
-Test backends are listed below in descending order in terms of performance:
+Tested with the same prompt `"What is machine learning?"`:
 
-[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 32GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_vulkan_32_32.md) - the best
+## Dedicated Graphics Memory: 16G
 
-[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 48GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_vulkan_48_16.md)
+Llama.cpp+ROCM [ Prompt: 448.5 t/s | Generation: 28.7 t/s ]
+Llama.cpp+Vulkan [ Prompt: 341.1 t/s | Generation: 29.4 t/s ]
+Ollama [ prompt eval rate: 64.58 tokens/s | eval rate: 16.93 tokens/s ]
 
-[Llama.cpp with Vulkan backend; dedicated Graphics Memory: 16GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_vulkan_16_48.md)
+## Dedicated Graphics Memory: 32G
 
-[Llama.cpp with ROCm backend; dedicated Graphics Memory: 16GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_rocm.md)
+Llama.cpp+ROCM [ Prompt: 562.1 t/s | Generation: 29.7 t/s ]
+Llama.cpp+Vulkan [ Prompt: 410.7 t/s | Generation: 30.4 t/s ]
+Ollama [ prompt eval rate: 63.77 tokens/s | eval rate: 16.83 tokens/s ]
 
-[Llama.cpp with CPU backend; dedicated Graphics Memory: 16GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/llamacpp_cpu.md)
+## Dedicated Graphics Memory: 48G
 
-[Ollama; dedicated Graphics Memory: 16GB](https://github.com/eliranwong/AMD_iGPU_AI_Setup/blob/main/speed_test/ollama.md) - the worse
-
-## Observations:
-
-* llama.cpp that runs CPU backend is slightly faster than ollama in all tests loading the same model weights.
-
-* llama.cpp that runs ROCm backend is much faster than ollama in all tests loading the same model weights.
-
-* llama.cpp that runs Vulkan backend, with dedicated graphics memory set to 32GB, performs the best.
-
-* Changes in dedicated graphics memory does not have significance change in performance for both ollama and llama.cpp that runs ROCm/CPU backend
-
-* Changes in dedicated graphics memory does make a significance difference for running llama.cpp with Vulkan backend.
-
-* Ollama performs the worse.
-
-Note: Ollama currently does not support ROCm configuration `gfx1151`, the issue [was reported here](https://github.com/ollama/ollama/issues/9180).
+Llama.cpp+ROCM [ Prompt: 551.6 t/s | Generation: 29.8 t/s ]
+Llama.cpp+Vulkan [ Prompt: 399.0 t/s | Generation: 30.5 t/s ]
+Ollama [ prompt eval rate: 21.56 tokens/s | eval rate: 14.92 tokens/s ]
