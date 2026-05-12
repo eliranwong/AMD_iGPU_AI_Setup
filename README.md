@@ -528,6 +528,10 @@ AgentMake AI supports 14 AI backends and 7 agentic components.
 
 Read more at https://github.com/eliranwong/agentmake
 
+# Install OpenClaw with Discord Integration
+
+[OpenClaw Setup](openclaw.md)
+
 # Speed Tests
 
 Tested with the same prompt `"What is machine learning?"`:

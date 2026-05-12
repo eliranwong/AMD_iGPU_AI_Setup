@@ -1,0 +1,170 @@
+{
+    "agents": {
+        "defaults": {
+            "model": {
+                "primary": "ollama/glm-5.1:cloud"
+            },
+            "workspace": "/home/eliran/.openclaw/workspace"
+        }
+    },
+    "models": {
+        "providers": {
+            "ollama": {
+                "api": "ollama",
+                "apiKey": "ollama-local",
+                "baseUrl": "http://127.0.0.1:11434",
+                "models": [
+                    {
+                        "contextWindow": 202752,
+                        "cost": {
+                            "cacheRead": 0,
+                            "cacheWrite": 0,
+                            "input": 0,
+                            "output": 0
+                        },
+                        "id": "glm-5.1:cloud",
+                        "input": [
+                            "text"
+                        ],
+                        "name": "glm-5.1:cloud",
+                        "reasoning": true
+                    }
+                ]
+            }
+        }
+    },
+    "gateway": {
+        "mode": "local",
+        "auth": {
+            "mode": "token",
+            "token": "<openclaw-local-token>"
+        },
+        "port": 18789,
+        "bind": "loopback",
+        "tailscale": {
+            "mode": "off",
+            "resetOnExit": false
+        },
+        "controlUi": {
+            "allowInsecureAuth": true
+        },
+        "nodes": {
+            "denyCommands": [
+                "camera.snap",
+                "camera.clip",
+                "screen.record",
+                "contacts.add",
+                "calendar.add",
+                "reminders.add",
+                "sms.send",
+                "sms.search"
+            ]
+        }
+    },
+    "session": {
+        "dmScope": "per-channel-peer"
+    },
+    "tools": {
+        "profile": "coding",
+        "web": {
+            "search": {
+                "provider": "ollama",
+                "enabled": true,
+                "openaiCodex": {}
+            },
+            "fetch": {
+                "enabled": true
+            }
+        }
+    },
+    "plugins": {
+        "entries": {
+            "discord": {
+                "enabled": true
+            },
+            "ollama": {
+                "enabled": true
+            }
+        }
+    },
+    "channels": {
+        "discord": {
+            "enabled": true,
+            "token": {
+                "source": "env",
+                "provider": "default",
+                "id": "DISCORD_BOT_TOKEN"
+            },
+            "groupPolicy": "allowlist",
+            "guilds": {
+                "<server-id>": {
+                    "requireMention": false,
+                    "users": [
+                        "<user-id>"
+                    ]
+                }
+            },
+            "applicationId": "<application-id>",
+            "dmPolicy": "allowlist",
+            "allowFrom": [
+                "<user-id>"
+            ]
+        }
+    },
+    "skills": {
+        "entries": {
+            "goplaces": {
+                "apiKey": "<goplaces-api-key>"
+            },
+            "notion": {
+                "apiKey": "<notion-api-key>"
+            },
+            "openai-whisper-api": {
+                "apiKey": "<whisper-api-key>"
+            },
+            "sag": {
+                "apiKey": "<sag-api-key>"
+            }
+        }
+    },
+    "hooks": {
+        "internal": {
+            "enabled": true,
+            "entries": {
+                "boot-md": {
+                    "enabled": true
+                },
+                "bootstrap-extra-files": {
+                    "enabled": true
+                },
+                "command-logger": {
+                    "enabled": true
+                },
+                "compaction-notifier": {
+                    "enabled": true
+                },
+                "session-memory": {
+                    "enabled": true
+                }
+            }
+        }
+    },
+    "wizard": {
+        "lastRunAt": "2026-05-11T21:15:43.544Z",
+        "lastRunVersion": "2026.5.7",
+        "lastRunCommand": "configure",
+        "lastRunMode": "local"
+    },
+    "meta": {
+        "lastTouchedVersion": "2026.5.7",
+        "lastTouchedAt": "2026-05-12T10:50:50.476Z"
+    },
+    "env": {
+        "DISCORD_BOT_TOKEN": "<discord-bot-token>"
+    },
+    "messages": {
+        "groupChat": {
+            "visibleReplies": "automatic"
+        }
+    }
+}

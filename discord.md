@@ -1,0 +1,86 @@
+# Configure Discord
+
+## Configure Developer Portal
+
+### Create Bot Application
+
+https://discord.com/developers/home
+
+1. Create a new application.
+2. Go to the Bot tab and click "Add Bot".
+3. Copy the token and save it.
+
+### Get Application ID
+
+Go to developer portal, select your application:
+
+1. Go to "General Information"
+2. Copy "Application ID"
+
+### Get Bot Token
+
+Go to developer portal, select your application:
+
+1. Go to "Bot"
+2. Reset Token (click "Reset Token" button)
+3. Copy Token
+
+### Bot Permissions
+
+Go to developer portal, select your application > Bot > Authorization Flow:
+
+- Public Bot > Enable
+- Requires OAuth2 Code Grant > Disable
+- Privileged Gateway Intents > Presence Intent > Enable
+- Privileged Gateway Intents > Server Members Intent > Enable
+- Privileged Gateway Intents > Message Content Intent > Enable
+
+Bot Permissions > Administrator
+
+Save Changes
+
+### Configure OAuth2
+
+OAuth2 > URL Generator:
+- Client ID
+- Scopes: bot
+- Scopes: applications.commands
+- Bot Permissions > Administrator
+- Integration Type > Guild Install
+- Copy and open the Generated URL in browser to install the bot in your server
+
+## Configure Discord Client
+
+### Enable Developer Mode
+
+Log in to Discord app or page, go to User Settings > Advanced > Developer Mode and enable it.
+
+### Get User ID
+
+Right click on your user avatar in Discord and select "Copy ID".
+
+### Get Server ID
+
+1. Create a server, and add your bot to it.
+
+2. Right click on your server name in Discord and select "Copy ID".
+
+### Get Channel ID
+
+1. Create a text channel in your server.
+2. Right click on your channel name in Discord and select "Copy ID".
+
+### Configure Channel Permissions
+
+Channel Permissions > Advanced Permissions, enable:
+
+- View Channel
+- Send Messages
+- Send Messages in Threads
+- Embed Links
+- Attach Files
+- Mention @everyone, @here, and All Roles
+- Use Application Commands
+- Manage Threads
+- Create Public Threads
+- Create Private Threads
