@@ -69,6 +69,10 @@ chmod 600 ~/.ollama/id_ed25519
 
 [Discord Setup](discord.md)
 
+## Configure Coding Agents
+
+[Coding Agents Setup](coding_agents.md)
+
 ## Configure and Run OpenClaw
 
 Configure openclaw.json:
