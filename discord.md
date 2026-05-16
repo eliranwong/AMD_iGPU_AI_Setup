@@ -41,6 +41,8 @@ Save Changes
 
 ### Configure OAuth2
 
+Remarks: Create a server first, select it during OAuth2 verification.
+
 OAuth2 > URL Generator:
 - Client ID
 - Scopes: bot
@@ -84,3 +86,15 @@ Channel Permissions > Advanced Permissions, enable:
 - Manage Threads
 - Create Public Threads
 - Create Private Threads
+
+# Export DISCORD_BOT_TOKEN
+
+Edit `~/.bashrc` and add:
+
+```bash
+export DISCORD_BOT_TOKEN=xxx
+```
+
+# Verifiy Direct Message with Bot in Discord Client
+
+This is to verify that the bot can receive messages and send messages.
