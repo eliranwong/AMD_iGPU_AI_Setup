@@ -85,3 +85,38 @@ Edit `~.openclaw/openclaw.json`, and run:
 openclaw onboard --install-daemon
 ```
 
+# Configure Web Search with SearXNG
+
+## Install Docker Engine
+
+
+Read https://docs.docker.com/engine/install/ubuntu/
+
+Then, run:
+
+```
+sudo usermod -aG docker $LOGNAME
+newgrp docker
+```
+
+## Install SearXNG
+
+Read https://github.com/searxng/searxng
+
+Recommendation: change the default 8080 to something else, e.g. 4000, in the .env file before run the install script.
+
+## Configure OpenClaw Web Search to use SearXNG
+
+```
+openclaw configure
+```
+
+# Fix Progress Updates in Discord
+
+Remove the following line from `~/.openclaw/openclaw.json` under the session `tools`:
+
+```
+"profile": "coding",
+```
+
+Read issue: https://github.com/openclaw/openclaw/issues/82747
