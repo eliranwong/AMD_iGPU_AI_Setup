@@ -6,9 +6,9 @@
 
 https://discord.com/developers/home
 
-1. Create a new application.
-2. Go to the Bot tab and click "Add Bot".
-3. Copy the token and save it.
+1. Create a new application > Create blank app.
+2. Give it a name.
+3. Click "Save changes".
 
 ### Get Application ID
 
@@ -41,15 +41,16 @@ Save Changes
 
 ### Configure OAuth2
 
-Remarks: Create a server first, select it during OAuth2 verification.
+Remarks: Create a server first `Create My Own` > `For a club or community`, select it during OAuth2 verification.
 
 OAuth2 > URL Generator:
-- Client ID
 - Scopes: bot
 - Scopes: applications.commands
 - Bot Permissions > Administrator
 - Integration Type > Guild Install
 - Copy and open the Generated URL in browser to install the bot in your server
+
+Select the newly created server in the `Add to Server` selection menu.
 
 ## Configure Discord Client
 
@@ -98,3 +99,7 @@ export DISCORD_BOT_TOKEN=xxx
 # Verifiy Direct Message with Bot in Discord Client
 
 This is to verify that the bot can receive messages and send messages.
+
+# Working with Channels
+
+Send at least one direct message to the bot before working with agents with channels.

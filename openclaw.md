@@ -2,38 +2,19 @@
 
 https://nodejs.org/en/download
 
-## Install Linux Homebrew
-
-https://brew.sh/
-
-1. Execute the command line displayed at the top of the page.
-
-2. Run the following script:
-
-```
-# set path
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"' >> ~/.bashrc
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-# opt out analytics
-export HOMEBREW_NO_ANALYTICS=1
-echo "export HOMEBREW_NO_ANALYTICS=1" >> ~/.bashrc
-# Test
-which brew
-```
-
 ## Install Dependencies for OpenClaw and its Builtin SKILLs
 
 ```bash
 npm install -g mcporter@latest
 npm install -g clawhub@latest
 npm install -g @steipete/summarize@latest
-npm install -g @mariozechner/pi-ai@latest
+npm install -g earendil-works/pi-ai@latest
 ```
 
 ## Install OpenClaw
 
 ```
-npm i -g openclaw
+npm i -g openclaw@latest
 ```
 
 ## Install Ollama
@@ -50,6 +31,7 @@ Subscribe to a cloud plan at https://ollama.com/pricing
 
 ```
 ollama signin
+ollama pull glm-5.1:cloud
 ollama launch openclaw --config
 ```
 
@@ -66,6 +48,12 @@ chmod 600 ~/.ollama/id_ed25519
 ```
 
 ## Configure Discord
+
+Install Discord plugin:
+
+```
+openclaw plugins install @openclaw/discord
+```
 
 [Discord Setup](discord.md)
 
