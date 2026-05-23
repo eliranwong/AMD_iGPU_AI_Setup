@@ -6,21 +6,27 @@
 
 ## OpenAI Codex via Azure Foundry
 
-1. Create a new directory called `.codex` in home directory:
+1. Install codex:
+
+```
+npm install -g @openai/codex
+```
+
+2. Create a new directory called `.codex` in home directory:
 
 > mkdir -p ~/.codex
 
-2. Copy the file [codex/config.toml](codex/config.toml) to `~/.codex/config.toml`.
+3. Copy the file [codex/config.toml](codex/config.toml) to `~/.codex/config.toml`.
 
-3. Edit the `base_url` in the file `~/.codex/config.toml`.
+4. Edit the `base_url` in the file `~/.codex/config.toml`.
 
-4. Export `AZURE_OPENAI_API_KEY` in `~/.bashrc`:
+5. Export `AZURE_OPENAI_API_KEY` in `~/.bashrc`:
 
 ```bash
 export AZURE_OPENAI_API_KEY='...'
 ```
 
-For details,ollow the instructions at:
+For details, follow the instructions at:
 
 https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/codex?view=foundry-classic&tabs=npm
 
