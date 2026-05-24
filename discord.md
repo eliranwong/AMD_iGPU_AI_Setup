@@ -41,7 +41,7 @@ Save Changes
 
 ### Configure OAuth2
 
-Remarks: Create a server first `Create My Own` > `For a club or community`, select it during OAuth2 verification.
+Remarks: Create a server first `Create My Own` > `For me and my friends`, select it during OAuth2 verification.
 
 OAuth2 > URL Generator:
 - Scopes: bot
