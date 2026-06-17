@@ -64,14 +64,14 @@ Launch `Extension Manager` and install:
 
 Find details at: https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/docs/install/installryz/native_linux/install-ryzen.html
 
-Tested ROCm version: 7.1.1
+Tested ROCm version: 7.2.1
 
 ```
 sudo usermod -a -G render,video $LOGNAME
 sudo apt update
 sudo apt install -y libstdc++-12-dev
-wget https://repo.radeon.com/amdgpu-install/7.1.1/ubuntu/noble/amdgpu-install_7.1.1.70101-1_all.deb
-sudo apt install ./amdgpu-install_7.1.1.70101-1_all.deb
+wget https://repo.radeon.com/amdgpu-install/7.2.1/ubuntu/noble/amdgpu-install_7.2.1.70201-1_all.deb
+sudo apt install ./amdgpu-install_7.2.1.70201-1_all.deb
 sudo amdgpu-install --usecase=graphics,multimedia,rocm,rocmdev,rocmdevtools,lrt,opencl,openclsdk,hip,hiplibsdk,openmpsdk,mllib,mlsdk --no-dkms -y
 sudo reboot
 ```
@@ -95,9 +95,9 @@ Name: gfx1150
 Add the following lines to `~/.bashrc`:
 
 ```
-export ROCM_HOME=/opt/rocm-7.1.1
-export LD_LIBRARY_PATH=/opt/rocm-7.1.1/include:/opt/rocm-7.1.1/lib:$LD_LIBRARY_PATH
-export PATH=$HOME/.local/bin:/opt/rocm-7.1.1/bin:/opt/rocm-7.1.1/llvm/bin:$PATH
+export ROCM_HOME=/opt/rocm-7.2.1
+export LD_LIBRARY_PATH=/opt/rocm-7.1.1/include:/opt/rocm-7.2.1/lib:$LD_LIBRARY_PATH
+export PATH=$HOME/.local/bin:/opt/rocm-7.1.1/bin:/opt/rocm-7.2.1/llvm/bin:$PATH
 ```
 
 ```
@@ -105,7 +105,7 @@ export PATH=$HOME/.local/bin:/opt/rocm-7.1.1/bin:/opt/rocm-7.1.1/llvm/bin:$PATH
 export GFX_ARCH=gfx1150
 export HCC_AMDGPU_TARGET=gfx1150
 export CUPY_INSTALL_USE_HIP=1
-export ROCM_VERSION=7.1
+export ROCM_VERSION=7.2
 export ROCM_HOME=/opt/rocm
 export LD_LIBRARY_PATH=/usr/include/vulkan:/opt/rocm/include:/opt/rocm/lib:/opt/rocm/lib/llvm/lib:/opt/rocm/lib/migraphx/lib:$LD_LIBRARY_PATH
 export PATH=/home/eliran/.local/bin:/opt/rocm/bin:/opt/rocm/llvm/bin:$PATH
