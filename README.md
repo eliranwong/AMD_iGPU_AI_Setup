@@ -96,8 +96,8 @@ Add the following lines to `~/.bashrc`:
 
 ```
 export ROCM_HOME=/opt/rocm-7.2.1
-export LD_LIBRARY_PATH=/opt/rocm-7.1.1/include:/opt/rocm-7.2.1/lib:$LD_LIBRARY_PATH
-export PATH=$HOME/.local/bin:/opt/rocm-7.1.1/bin:/opt/rocm-7.2.1/llvm/bin:$PATH
+export LD_LIBRARY_PATH=/opt/rocm-7.2.1/include:/opt/rocm-7.2.1/lib:$LD_LIBRARY_PATH
+export PATH=$HOME/.local/bin:/opt/rocm-7.2.1/bin:/opt/rocm-7.2.1/llvm/bin:$PATH
 ```
 
 ```
@@ -148,7 +148,7 @@ for RDNA 3.5 based GPUs and APUs HSA_OVERRIDE_GFX_VERSION=11.5.0
 
 3. Read more at: https://llvm.org/docs/AMDGPUUsage.html#processors
 
-In my case, I am running ROCm version 7.1.1.
+In my case, I am running ROCm version 7.2.1.
 
 When I run:
 
